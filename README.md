@@ -27,7 +27,7 @@ review, merge conflict resolution, and deployment.
 
 ## Getting Started
 
-\`\`\`bash
+bash
 git clone https://github.com/Zephyrex21/taskflow.git
 cd taskflow
 
@@ -40,7 +40,7 @@ npm run dev
 cd frontend
 npm install
 npm run dev
-\`\`\`
+
 
 ## Branching & Contribution Flow
 
