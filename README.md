@@ -26,12 +26,10 @@ review, merge conflict resolution, and deployment.
 taskflow/
 ├── backend/
 │   ├── src/
-│   │   ├── models/          # Task.js (done), User.js (pending)
-│   │   ├── routes/          # task.routes.js (done), auth.routes.js (pending),
-│   │   │                    # health.routes.js (pending)
-│   │   ├── controllers/     # taskController.js (done), authController.js (pending)
-│   │   ├── middleware/      # mockAuth.js (temporary), errorHandler.js,
-│   │   │                    # verifyToken.js (pending)
+│   │   ├── models/          # Task.js, User.js
+│   │   ├── routes/          # task.routes.js, auth.routes.js, health.routes.js
+│   │   ├── controllers/     # taskController.js, authController.js
+│   │   ├── middleware/      # verifyToken.js, errorHandler.js
 │   │   ├── config/          # env.js, db.js
 │   │   ├── app.js
 │   │   └── server.js
@@ -50,13 +48,13 @@ taskflow/
 ## Getting Started
 
 ```bash
-git clone https://github.com/Zephyrex21/taskflow.git
+git clone https://github.com/Code-Orbit-Lab/taskflow.git
 cd taskflow
 
 # backend
 cd backend
 npm install
-cp .env.example .env   # then fill in your own MONGO_URI
+cp .env.example .env   # then fill in your own MONGO_URI and JWT_SECRET
 npm run dev
 
 # frontend
@@ -69,17 +67,16 @@ npm run dev
 
 | Endpoint | Method | Status |
 |---|---|---|
-| `/api/tasks` | GET, POST | ✅ Live (behind temporary mock auth) |
-| `/api/tasks/:id` | GET, PUT, DELETE | ✅ Live (behind temporary mock auth) |
-| `/api/tasks/:id/status` | PATCH | ✅ Live (behind temporary mock auth) |
-| `/api/auth/register` | POST | 🚧 In progress |
-| `/api/auth/login` | POST | 🚧 In progress |
-| `/api/auth/me` | GET | 🚧 In progress |
+| `/api/auth/register` | POST | ✅ Live |
+| `/api/auth/login` | POST | ✅ Live |
+| `/api/auth/me` | GET | ✅ Live |
+| `/api/tasks` | GET, POST | ✅ Live (JWT protected) |
+| `/api/tasks/:id` | GET, PUT, DELETE | ✅ Live (JWT protected) |
+| `/api/tasks/:id/status` | PATCH | ✅ Live (JWT protected) |
+| `/api/health` | GET | ✅ Live |
 
-**Note:** Task routes currently run behind a temporary `mockAuth` middleware
-until the real JWT-based `verifyToken` middleware is merged. See
-`backend/src/middleware/mockAuth.js` for details — it's clearly marked
-and will be swapped out, not left in place.
+All task and profile routes require a valid `Authorization: Bearer <token>`
+header, issued by `/api/auth/register` or `/api/auth/login`.
 
 ## Branching & Contribution Flow
 
@@ -92,8 +89,9 @@ scoped to one feature. See the Project Blueprint for full details.
 🚧 In active development.
 
 - ✅ Backend & frontend scaffolding merged
-- ✅ Task model, CRUD API, and routes merged (temporary mock auth)
+- ✅ Task model, CRUD API, and routes merged
 - ✅ Backend restructured into `backend/` (package.json, lockfile, env moved out of root)
-- 🚧 Auth system (JWT, User model, real middleware) — in progress
+- ✅ JWT auth system merged — register, login, `/me`, real `verifyToken` middleware
+- ✅ Repo moved to the Code-Orbit-Lab organization
 - 🚧 Frontend login/register/dashboard pages — in progress
-- ⏳ Merge conflict practice, deployment — not started yet
+- ⏳ API contract doc, CI pipeline, deployment — not started yet
