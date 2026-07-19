@@ -1,6 +1,10 @@
 const path = require('path');
 
+<<<<<<< HEAD
 require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
+=======
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
+>>>>>>> origin/main
 
 const env = {
   port: process.env.PORT || 5000,
