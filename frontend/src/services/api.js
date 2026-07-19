@@ -97,7 +97,9 @@ async function request(path, { method = "GET", body, token } = {}) {
   }
 
   if (res.status === 204) return null
-  return res.json()
+  const json = await res.json()
+  return json.data !== undefined ? json.data : json
+}
 }
 
 // ---------------------------------------------------------------------------
